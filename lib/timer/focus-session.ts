@@ -105,7 +105,7 @@ export const parsePersistedSession = (
     return {
       ...parsed,
       version: 2,
-    };
+    } as PersistedFocusSession;
   } catch {
     return null;
   }

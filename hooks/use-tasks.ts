@@ -89,7 +89,10 @@ export const useTasks = () => {
         .order("sort_order")
         .order("created_at");
       if (!cancelled && remoteTasks) {
-        setState((current) => ({ ...current, tasks: remoteTasks.map(toTask) }));
+        setState((current) => ({
+          ...current,
+          tasks: remoteTasks.map((task) => toTask(task as DatabaseTask)),
+        }));
       }
     })();
     return () => {
