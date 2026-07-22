@@ -27,11 +27,15 @@ const storedTasksSchema = z.object({
   completedSessionIds: z.array(z.string().uuid()),
 });
 
-export type StoredTasks = z.infer<typeof storedTasksSchema>;
+export type StoredTasks = {
+  version: 1;
+  tasks: Task[];
+  completedSessionIds: string[];
+};
 
 export const parseStoredTasks = (value: string): StoredTasks | null => {
   try {
-    return storedTasksSchema.parse(JSON.parse(value));
+    return storedTasksSchema.parse(JSON.parse(value)) as StoredTasks;
   } catch {
     return null;
   }
